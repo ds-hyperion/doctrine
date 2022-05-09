@@ -3,18 +3,6 @@
 namespace Hyperion\Doctrine;
 
 use Hyperion\Doctrine\DoctrineEvents\TablePrefixSubscriber;
-use Hyperion\Doctrine\Entity\Comment;
-use Hyperion\Doctrine\Entity\CommentMeta;
-use Hyperion\Doctrine\Entity\Link;
-use Hyperion\Doctrine\Entity\Option;
-use Hyperion\Doctrine\Entity\Post;
-use Hyperion\Doctrine\Entity\PostMeta;
-use Hyperion\Doctrine\Entity\Term;
-use Hyperion\Doctrine\Entity\TermMeta;
-use Hyperion\Doctrine\Entity\TermRelationship;
-use Hyperion\Doctrine\Entity\TermTaxonomy;
-use Hyperion\Doctrine\Entity\User;
-use Hyperion\Doctrine\Entity\UserMeta;
 use Hyperion\Doctrine\Service\DoctrineService;
 
 class Plugin
@@ -24,28 +12,17 @@ class Plugin
 
     public static function init()
     {
-        add_filter(self::ADD_ENTITIES_FILTER, 'Hyperion\Doctrine\Plugin::addWordPressEntities');
+        add_filter(self::ADD_ENTITIES_FILTER, 'Hyperion\Doctrine\Plugin::addWordPressEntityPath');
         add_filter(self::ADD_EVENT_FILTER, 'Hyperion\Doctrine\Plugin::addWordpressDoctrineEvent');
         DoctrineService::addEntities(apply_filters(self::ADD_ENTITIES_FILTER, array()));
         DoctrineService::initializeORM();
     }
 
-    public static function addWordPressEntities(array $entities)
+    public static function addWordPressEntityPath(array $entityPaths)
     {
-        return array_merge($entities, [
-            Comment::class,
-            CommentMeta::class,
-            Link::class,
-            Option::class,
-            Post::class,
-            PostMeta::class,
-            Term::class,
-            TermMeta::class,
-            TermRelationship::class,
-            TermTaxonomy::class,
-            User::class,
-            UserMeta::class
-        ]);
+        $entityPaths[] = __DIR__."/Entity";
+
+        return $entityPaths;
     }
 
     public static function addWordpressDoctrineEvent(array $doctrineEvents)

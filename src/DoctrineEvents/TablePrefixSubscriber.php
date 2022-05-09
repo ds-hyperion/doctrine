@@ -31,13 +31,8 @@ class TablePrefixSubscriber implements EventSubscriber
     public function loadClassMetadata(LoadClassMetadataEventArgs $args) : void
     {
         $classMetadata = $args->getClassMetadata();
-        if(class_exists(Config::class)) {
-            try {
-                $dbPrefix = getenv('DB_PREFIX');
-            } catch(UndefinedConfigKeyException $exception) {
-                $dbPrefix = 'wp_';
-            }
-        }
+        $dbPrefix = getenv('DB_PREFIX') === false ? 'wp_' : getenv('DB_PREFIX');
+
         if (false === strpos($classMetadata->getTableName(), $dbPrefix)) {
             $tableName = $dbPrefix . strtolower($classMetadata->getTableName());
             $classMetadata->setPrimaryTable(['name' => $tableName]);
