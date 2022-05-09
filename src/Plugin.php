@@ -24,8 +24,8 @@ class Plugin
 
     public static function init()
     {
-        add_filter(self::ADD_ENTITIES_FILTER, 'Plugin::addWordPressEntities');
-        add_filter(self::ADD_EVENT_FILTER, 'Plugin::addWordpressDoctrineEvent');
+        add_filter(self::ADD_ENTITIES_FILTER, 'Hyperion\Doctrine\Plugin::addWordPressEntities');
+        add_filter(self::ADD_EVENT_FILTER, 'Hyperion\Doctrine\Plugin::addWordpressDoctrineEvent');
         DoctrineService::addEntities(apply_filters(self::ADD_ENTITIES_FILTER, array()));
         DoctrineService::initializeORM();
     }
