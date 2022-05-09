@@ -41,7 +41,7 @@ class DoctrineService
 
         // Add doctrine events
         foreach(apply_filters(Plugin::ADD_EVENT_FILTER, array()) as $subscriber) {
-            $entityManager->getEventManager()->addEventSubscriber($subscriber);
+            $entityManager->getEventManager()->addEventSubscriber(new $subscriber());
         }
 
         self::$entityManager = $entityManager;

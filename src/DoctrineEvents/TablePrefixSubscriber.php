@@ -2,14 +2,14 @@
 
 namespace Hyperion\Doctrine\DoctrineEvents;
 
-use Hyperion\Core\Abstracts\DoctrineEventAbstract;
+use Doctrine\Common\EventSubscriber;
 use Doctrine\ORM\Event\LoadClassMetadataEventArgs;
 use Doctrine\ORM\Events;
 use Doctrine\ORM\Mapping\ClassMetadataInfo;
 use Roots\WPConfig\Config;
 use Roots\WPConfig\Exceptions\UndefinedConfigKeyException;
 
-class TablePrefixSubscriber extends DoctrineEventAbstract
+class TablePrefixSubscriber implements EventSubscriber
 {
     /**
      * Get subscribed events
@@ -31,13 +31,8 @@ class TablePrefixSubscriber extends DoctrineEventAbstract
     public function loadClassMetadata(LoadClassMetadataEventArgs $args) : void
     {
         $classMetadata = $args->getClassMetadata();
-        if(class_exists(Config::class)) {
-            try {
-                $dbPrefix = getenv('DB_PREFIX');
-            } catch(UndefinedConfigKeyException $exception) {
-                $dbPrefix = 'wp_';
-            }
-        }
+        $dbPrefix = getenv('DB_PREFIX') === false ? 'wp_' : getenv('DB_PREFIX');
+
         if (false === strpos($classMetadata->getTableName(), $dbPrefix)) {
             $tableName = $dbPrefix . strtolower($classMetadata->getTableName());
             $classMetadata->setPrimaryTable(['name' => $tableName]);
