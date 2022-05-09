@@ -37,8 +37,10 @@ class DoctrineService
         );
 
         $entityManager = EntityManager::create(self::$dbParams->toArray(), $config);
-        $entityManager->getConnection()->getDatabasePlatform()->registerDoctrineTypeMapping('enum', 'string');
         Type::addType('uuid', 'Ramsey\Uuid\Doctrine\UuidType');
+        Type::addType('uuid_binary_ordered_time', 'Ramsey\Uuid\Doctrine\UuidBinaryOrderedTimeType');
+        $entityManager->getConnection()->getDatabasePlatform()->registerDoctrineTypeMapping('enum', 'string');
+        $entityManager->getConnection()->getDatabasePlatform()->registerDoctrineTypeMapping('uuid_binary_ordered_time', 'binary');
         $config->addCustomStringFunction('STR_TO_DATE', 'DoctrineExtensions\Query\Mysql\StrToDate');
 
         // Add doctrine events
