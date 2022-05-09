@@ -1,8 +1,9 @@
 <?php
 
+namespace Hyperion\Doctrine\Model;
+
 class DoctrineDBModel
 {
-    public const DEFAULT_TABLE_PREFIX = 'wp_';
     public const DEFAULT_HOST = 'localhost';
     public const DEFAULT_DRIVER = 'pdo_mysql';
 

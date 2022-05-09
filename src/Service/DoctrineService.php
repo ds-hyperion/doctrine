@@ -1,12 +1,13 @@
 <?php
 
-namespace Hyperion\Doctrine;
+namespace Hyperion\Doctrine\Service;
 
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\ORMSetup;
-use DoctrineDBModel;
 use Exception;
+use Hyperion\Doctrine\Model\DoctrineDBModel;
+use Hyperion\Doctrine\Plugin;
 
 class DoctrineService
 {
