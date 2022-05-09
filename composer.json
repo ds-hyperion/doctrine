@@ -1,0 +1,19 @@
+{
+    "name": "hyperion/doctrine",
+    "description": "Plugin permettant l'integration de doctrine dans wordpress",
+    "type": "plugin",
+    "autoload": {
+        "psr-4": {
+            "Hyperion\\Doctrine\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Grégory COLLIN",
+            "email": "gregory@d4rk0s.net"
+        }
+    ],
+    "require": {
+        "doctrine/orm": "^2.12"
+    }
+}
