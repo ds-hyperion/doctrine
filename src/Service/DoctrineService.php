@@ -1,6 +1,6 @@
 <?php
 
-namespace Hyperion\Doctrine;
+namespace Hyperion\Doctrine\Service;
 
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;

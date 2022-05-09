@@ -15,6 +15,7 @@ use Hyperion\Doctrine\Entity\TermRelationship;
 use Hyperion\Doctrine\Entity\TermTaxonomy;
 use Hyperion\Doctrine\Entity\User;
 use Hyperion\Doctrine\Entity\UserMeta;
+use Hyperion\Doctrine\Service\DoctrineService;
 
 class Plugin
 {

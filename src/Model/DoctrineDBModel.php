@@ -1,5 +1,7 @@
 <?php
 
+namespace Hyperion\Doctrine\Model;
+
 class DoctrineDBModel
 {
     public const DEFAULT_TABLE_PREFIX = 'wp_';
