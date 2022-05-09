@@ -2,6 +2,7 @@
 
 namespace Hyperion\Doctrine\Service;
 
+use Doctrine\DBAL\Types\Type;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\ORMSetup;
@@ -37,6 +38,7 @@ class DoctrineService
 
         $entityManager = EntityManager::create(self::$dbParams->toArray(), $config);
         $entityManager->getConnection()->getDatabasePlatform()->registerDoctrineTypeMapping('enum', 'string');
+        Type::addType('uuid', 'Ramsey\Uuid\Doctrine\UuidType');
         $config->addCustomStringFunction('STR_TO_DATE', 'DoctrineExtensions\Query\Mysql\StrToDate');
 
         // Add doctrine events
