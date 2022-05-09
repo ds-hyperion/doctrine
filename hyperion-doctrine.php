@@ -1,6 +1,6 @@
 <?php
 /**
- * Plugin Name: Hyperion Doctrine
+ * Plugin Name: Hyperion - Module Doctrine
  * Plugin URI:
  * Description: Intègre doctrine dans wordpress
  * Version: 0.1
