@@ -9,29 +9,32 @@ use Doctrine\ORM\Mapping as ORM;
  * Class Option
  * @package Hyperion\Core\Entity
  * @ORM\Entity()
- * @ORM\Table(name="options")
+ * @ORM\Table(name="options", indexes={
+ *     @Index(name="option_name", columns={"option_name"}),
+ *     @Index(name="autoload", columns={"autoload"})
+ * })
  */
 class Option
 {
     /**
      * @ORM\Id()
-     * @ORM\Column(name="option_id", type="integer")
+     * @ORM\Column(name="option_id", type="bigint", options={"unsigned": true})
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private int $id;
 
     /**
-     * @ORM\Column(type="string", name="option_name")
+     * @ORM\Column(type="string", length=191, name="option_name", unique=true, options={"default": ""})
      */
     private string $name;
 
     /**
-     * @ORM\Column(type="string", name="option_value")
+     * @ORM\Column(type="text", name="option_value")
      */
     private string $value;
 
     /**
-     * @ORM\Column(type="string", name="autoload")
+     * @ORM\Column(type="string", length=20, name="autoload", options={"default": "yes"})
      */
     private string $autoload;
 

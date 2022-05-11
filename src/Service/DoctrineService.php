@@ -53,7 +53,7 @@ class DoctrineService
 
     public static function addEntities(array $entitiesPath) : void
     {
-        self::$entitiesPath[] = $entitiesPath;
+        self::$entitiesPath = $entitiesPath;
     }
 
     public static function getEntityManager() : EntityManagerInterface

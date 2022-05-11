@@ -2,8 +2,10 @@
 
 namespace Hyperion\Doctrine;
 
+use Hyperion\Doctrine\Command\UpdateDatabase;
 use Hyperion\Doctrine\DoctrineEvents\TablePrefixSubscriber;
 use Hyperion\Doctrine\Service\DoctrineService;
+use WP_CLI;
 
 class Plugin
 {
@@ -16,6 +18,11 @@ class Plugin
         add_filter(self::ADD_EVENT_FILTER, 'Hyperion\Doctrine\Plugin::addWordpressDoctrineEvent');
         DoctrineService::addEntities(apply_filters(self::ADD_ENTITIES_FILTER, array()));
         DoctrineService::initializeORM();
+    }
+
+    public static function addCLICommands()
+    {
+        WP_CLI::add_command('doctrine_cli', '\Hyperion\Doctrine\Command\DoctrineCommands::runCommand');
     }
 
     public static function addWordPressEntityPath(array $entityPaths)

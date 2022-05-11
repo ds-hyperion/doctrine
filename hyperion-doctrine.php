@@ -11,3 +11,4 @@
  */
 
 add_action('init', '\Hyperion\Doctrine\Plugin::init');
+add_action('cli_init', '\Hyperion\Doctrine\Plugin::addCLICommands');

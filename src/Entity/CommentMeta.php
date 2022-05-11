@@ -8,14 +8,17 @@ use Doctrine\ORM\Mapping as ORM;
  * Class CommentMeta
  * @package Hyperion\Core\Entity
  * @ORM\Entity()
- * @ORM\Table(name="commentmeta")
+ * @ORM\Table(name="commentmeta", indexes={
+ *     @Index(name="comment_id", columns={"comment_id"}),
+ *     @Index(name="meta_key", columns={"meta_key"})
+ * })
  */
 class CommentMeta
 {
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue(strategy="AUTO")
-     * @ORM\Column(type="bigint", name="meta_id")
+     * @ORM\Column(type="bigint", name="meta_id", options={"unsigned": true})
      */
     private int $id;
 
@@ -26,12 +29,12 @@ class CommentMeta
     private Comment $comment;
 
     /**
-     * @ORM\Column(type="string", name="meta_key")
+     * @ORM\Column(type="string", length=255, name="meta_key")
      */
     private string $key;
 
     /**
-     * @ORM\Column(type="string", name="meta_value")
+     * @ORM\Column(type="text", name="meta_value")
      */
     private string $value;
 
