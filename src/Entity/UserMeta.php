@@ -24,7 +24,7 @@ class UserMeta
 
     /**
      * @ORM\ManyToOne(targetEntity="User", inversedBy="metas")
-     * @ORM\JoinColumn(name="user_id", referencedColumnName="ID")
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="ID", nullable=false)
      */
     private User $user;
 
