@@ -23,17 +23,17 @@ class Term
     private int $id;
 
     /**
-     * @ORM\Column(type="string", length=200, name="name", option={"default": ""})
+     * @ORM\Column(type="string", length=200, name="name", options={"default": ""})
      */
     private string $name;
 
     /**
-     * @ORM\Column(type="string", length=200, name="slug", option={"default": ""})
+     * @ORM\Column(type="string", length=200, name="slug", options={"default": ""})
      */
     private string $slug;
 
     /**
-     * @ORM\Column(type="bigint", name="term_group", option={"default": 0})
+     * @ORM\Column(type="bigint", name="term_group", options={"default": 0})
      */
     private int $termGroup;
 

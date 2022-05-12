@@ -45,7 +45,7 @@ class User
     private string $nicename;
 
     /**
-     * @ORM\Column(type="string", lenth=100, name="user_email",options={"default": ""})
+     * @ORM\Column(type="string", length=100, name="user_email",options={"default": ""})
      */
     private string $email;
 
