@@ -11,11 +11,10 @@ use Hyperion\Core\MetaEntity\Author;
  * @package Hyperion\Core\Entity
  * @ORM\Entity()
  * @ORM\Table(name="comments", indexes={
- *     @Index(name="comment_approved_date_gmt", columns={"comment_approved, comment_date_gmt"}),
- *     @Index(name="comment_author_email", columns={"comment_author_email"})
- *     @Index(name="comment_date_gmt", columns={"comment_date_gmt"})
- *     @Index(name="comment_parent", columns={"comment_parent"})
- *     @Index(name="comment_post_ID", columns={"comment_post_ID"})
+ *     @ORM\Index(name="comment_approved_date_gmt", columns={"comment_approved", "comment_date_gmt"}),
+ *     @ORM\Index(name="comment_author_email", columns={"comment_author_email"}),
+ *     @ORM\Index(name="comment_date_gmt", columns={"comment_date_gmt"}),
+ *     @ORM\Index(name="comment_post_ID", columns={"comment_post_ID"})
  * })
  */
 class Comment

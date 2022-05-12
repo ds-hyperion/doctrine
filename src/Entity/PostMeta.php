@@ -9,8 +9,8 @@ use Doctrine\ORM\Mapping as ORM;
  * @package Hyperion\Core\Entity
  * @ORM\Entity()
  * @ORM\Table(name="postmeta", indexes={
- *     @Index(name="meta_key", columns={"meta_key"}),
- *     @Index(name="post_id", columns={"post_id"})
+ *     @ORM\Index(name="meta_key", columns={"meta_key"}),
+ *     @ORM\Index(name="post_id", columns={"post_id"})
  * })
  */
 class PostMeta

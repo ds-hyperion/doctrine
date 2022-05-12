@@ -9,8 +9,8 @@ use Doctrine\ORM\Mapping as ORM;
  * @package Hyperion\Core\Entity
  * @ORM\Entity()
  * @ORM\Table(name="commentmeta", indexes={
- *     @Index(name="comment_id", columns={"comment_id"}),
- *     @Index(name="meta_key", columns={"meta_key"})
+ *     @ORM\Index(name="comment_id", columns={"comment_id"}),
+ *     @ORM\Index(name="meta_key", columns={"meta_key"})
  * })
  */
 class CommentMeta

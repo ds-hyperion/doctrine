@@ -9,8 +9,8 @@ use Doctrine\ORM\Mapping as ORM;
  * @package Hyperion\Core\Entity
  * @ORM\Entity()
  * @ORM\Table(name="usermeta", indexes={
- *     @Index(name="meta_key", columns={"meta_key"}),
- *     @Index(name="user_id", columns={"user_id"})
+ *     @ORM\Index(name="meta_key", columns={"meta_key"}),
+ *     @ORM\Index(name="user_id", columns={"user_id"})
  * })
  */
 class UserMeta
@@ -24,7 +24,7 @@ class UserMeta
 
     /**
      * @ORM\ManyToOne(targetEntity="User", inversedBy="metas")
-     * @ORM\JoinColumn(name="user_id", referencedColumnName="ID")
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="ID", nullable=false)
      */
     private User $user;
 

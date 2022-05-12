@@ -8,8 +8,8 @@ use Doctrine\ORM\Mapping as ORM;
  * Class TermRelationship
  * @package Hyperion\Core\Entity
  * @ORM\Entity()
- * @ORM\Table(name="term_relationships"indexes={
- *     @Index(name="term_taxonomy_id", columns={"term_taxonomy_id"})
+ * @ORM\Table(name="term_relationships", indexes={
+ *     @ORM\Index(name="term_taxonomy_id", columns={"term_taxonomy_id"})
  * })
  */
 class TermRelationship

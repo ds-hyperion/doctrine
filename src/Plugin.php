@@ -2,7 +2,6 @@
 
 namespace Hyperion\Doctrine;
 
-use Hyperion\Doctrine\Command\UpdateDatabase;
 use Hyperion\Doctrine\DoctrineEvents\TablePrefixSubscriber;
 use Hyperion\Doctrine\Service\DoctrineService;
 use WP_CLI;
@@ -22,7 +21,7 @@ class Plugin
 
     public static function addCLICommands()
     {
-        WP_CLI::add_command('doctrine_cli', '\Hyperion\Doctrine\Command\DoctrineCommands::runCommand');
+        WP_CLI::add_command('doctrine_cli', ['Hyperion\Doctrine\Command\DoctrineCommands','runCommand']);
     }
 
     public static function addWordPressEntityPath(array $entityPaths)

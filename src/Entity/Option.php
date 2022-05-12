@@ -10,8 +10,8 @@ use Doctrine\ORM\Mapping as ORM;
  * @package Hyperion\Core\Entity
  * @ORM\Entity()
  * @ORM\Table(name="options", indexes={
- *     @Index(name="option_name", columns={"option_name"}),
- *     @Index(name="autoload", columns={"autoload"})
+ *     @ORM\Index(name="option_name", columns={"option_name"}),
+ *     @ORM\Index(name="autoload", columns={"autoload"})
  * })
  */
 class Option
