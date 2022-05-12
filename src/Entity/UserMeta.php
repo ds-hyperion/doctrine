@@ -8,14 +8,17 @@ use Doctrine\ORM\Mapping as ORM;
  * Class UserMeta
  * @package Hyperion\Core\Entity
  * @ORM\Entity()
- * @ORM\Table(name="usermeta")
+ * @ORM\Table(name="usermeta", indexes={
+ *     @Index(name="meta_key", columns={"meta_key"}),
+ *     @Index(name="user_id", columns={"user_id"})
+ * })
  */
 class UserMeta
 {
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue(strategy="AUTO")
-     * @ORM\Column(type="bigint", name="umeta_id")
+     * @ORM\Column(type="bigint", name="umeta_id", options={"unsigned": true})
      */
     private int $id;
 
@@ -26,12 +29,12 @@ class UserMeta
     private User $user;
 
     /**
-     * @ORM\Column(type="string", name="meta_key")
+     * @ORM\Column(type="string", length=255, name="meta_key", nullable=true)
      */
     private string $key;
 
     /**
-     * @ORM\Column(type="string", name="meta_value")
+     * @ORM\Column(type="text", name="meta_value", nullable=true)
      */
     private string $value;
 

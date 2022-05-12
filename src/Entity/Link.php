@@ -9,44 +9,46 @@ use Doctrine\ORM\Mapping as ORM;
  * Class Link
  * @package Hyperion\Core\Entity
  * @ORM\Entity()
- * @ORM\Table(name="links")
+ * @ORM\Table(name="links",indexes={
+ *     @Index(name="link_visible", columns={"link_visible"})
+ * })
  */
 class Link
 {
     /**
      * @ORM\Id()
-     * @ORM\Column(type="integer", name="link_id")
+     * @ORM\Column(type="bigint", name="link_id", options={"unsigned": true})
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private int $id;
 
     /**
-     * @ORM\Column(type="string", name="link_url")
+     * @ORM\Column(type="string", length=255, name="link_url", options={"default": ""})
      */
     private string $url;
 
     /**
-     * @ORM\Column(type="string", name="link_name")
+     * @ORM\Column(type="string", length=255, name="link_name", options={"default": ""})
      */
     private string $name;
 
     /**
-     * @ORM\Column(type="string", name="link_image")
+     * @ORM\Column(type="string", length=255, name="link_image", options={"default": ""})
      */
     private string $image;
 
     /**
-     * @ORM\Column(type="string", name="link_target")
+     * @ORM\Column(type="string", length=255, name="link_target", options={"default": ""})
      */
     private string $target;
 
     /**
-     * @ORM\Column(type="string", name="link_description")
+     * @ORM\Column(type="string", length=255, name="link_description", options={"default": ""})
      */
     private string $description;
 
     /**
-     * @ORM\Column(type="string", name="link_visible")
+     * @ORM\Column(type="string", length=20, name="link_visible",options={"default": "Y"})
      */
     private string $visible;
 
@@ -57,27 +59,27 @@ class Link
     private User $owner;
 
     /**
-     * @ORM\Column(type="integer", name="link_rating")
+     * @ORM\Column(type="integer", name="link_rating", options={"default": 0})
      */
     private int $rating;
 
     /**
-     * @ORM\Column(type="datetime", name="link_updated")
+     * @ORM\Column(type="datetime", name="link_updated", options={"default": "0000-00-00 00:00:00"})
      */
     private DateTime $updated;
 
     /**
-     * @ORM\Column(type="string", name="link_rel")
+     * @ORM\Column(type="string", length=255, name="link_rel",options={"default": ""})
      */
     private string $rel;
 
     /**
-     * @ORM\Column(type="string", name="link_notes")
+     * @ORM\Column(type="text", name="link_notes")
      */
     private string $notes;
 
     /**
-     * @ORM\Column(type="string", name="link_rss")
+     * @ORM\Column(type="string", length=255, name="link_rss", options={"default": ""})
      */
     private string $rss;
 

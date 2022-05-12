@@ -11,7 +11,11 @@ use Doctrine\Common\Collections\Collection;
  * Class User
  * @package Hyperion\Core\Entity
  * @ORM\Entity()
- * @ORM\Table(name="users")
+ * @ORM\Table(name="users",indexes={
+ *     @Index(name="user_email", columns={"user_email"}),
+ *     @Index(name="user_login_key", columns={"user_login"})
+ *     @Index(name="user_nicename", columns={"user_nicename"})
+ * })
  */
 class User
 {
@@ -20,53 +24,53 @@ class User
 
     /**
      * @ORM\Id()
-     * @ORM\Column(type="integer", name="ID")
+     * @ORM\Column(type="bigint", name="ID", options={"unsigned": true})
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private int $id;
 
     /**
-     * @ORM\Column(type="string", name="user_login")
+     * @ORM\Column(type="string", length=60, name="user_login", options={"default": ""})
      */
     private string $login;
 
     /**
-     * @ORM\Column(type="string", name="user_pass")
+     * @ORM\Column(type="string", length=255, name="user_pass", options={"default": ""})
      */
     private string $pass;
 
     /**
-     * @ORM\Column(type="string", name="user_nicename")
+     * @ORM\Column(type="string", length=50, name="user_nicename", options={"default": ""})
      */
     private string $nicename;
 
     /**
-     * @ORM\Column(type="string", name="user_email")
+     * @ORM\Column(type="string", lenth=100, name="user_email",options={"default": ""})
      */
     private string $email;
 
     /**
-     * @ORM\Column(type="string", name="user_url")
+     * @ORM\Column(type="string", length=100, name="user_url",options={"default": ""})
      */
     private string $url;
 
     /**
-     * @ORM\Column(type="datetime", name="user_registered")
+     * @ORM\Column(type="datetime", name="user_registered",options={"default": "0000-00-00 00:00:00"})
      */
     private DateTime $registeredDate;
 
     /**
-     * @ORM\Column(type="string", name="user_activation_key")
+     * @ORM\Column(type="string", length=255, name="user_activation_key",options={"default": ""})
      */
     private string $activationKey;
 
     /**
-     * @ORM\Column(type="integer", name="user_status")
+     * @ORM\Column(type="integer", name="user_status", options={"default": 0})
      */
     private int $status;
 
     /**
-     * @ORM\Column(type="string", name="display_name")
+     * @ORM\Column(type="string", length=250, name="display_name", options={"default": ""})
      */
     private string $displayName;
 

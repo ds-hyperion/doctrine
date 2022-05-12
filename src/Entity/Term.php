@@ -8,29 +8,32 @@ use Doctrine\ORM\Mapping as ORM;
  * Class Term
  * @package Hyperion\Core\Entity
  * @ORM\Entity()
- * @ORM\Table(name="terms")
+ * @ORM\Table(name="terms", indexes={
+ *     @Index(name="name", columns={"name"}),
+ *     @Index(name="slug", columns={"slug"})
+ * })
  */
 class Term
 {
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue(strategy="AUTO")
-     * @ORM\Column(type="bigint", name="term_id")
+     * @ORM\Column(type="bigint", name="term_id", options={"unsigned": true})
      */
     private int $id;
 
     /**
-     * @ORM\Column(type="string", name="name")
+     * @ORM\Column(type="string", length=200, name="name", option={"default": ""})
      */
     private string $name;
 
     /**
-     * @ORM\Column(type="string", name="slug")
+     * @ORM\Column(type="string", length=200, name="slug", option={"default": ""})
      */
     private string $slug;
 
     /**
-     * @ORM\Column(type="integer", name="term_group")
+     * @ORM\Column(type="bigint", name="term_group", option={"default": 0})
      */
     private int $termGroup;
 

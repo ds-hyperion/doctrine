@@ -10,13 +10,19 @@ use Hyperion\Core\MetaEntity\Author;
  * Class Comment
  * @package Hyperion\Core\Entity
  * @ORM\Entity()
- * @ORM\Table(name="comments")
+ * @ORM\Table(name="comments", indexes={
+ *     @Index(name="comment_approved_date_gmt", columns={"comment_approved, comment_date_gmt"}),
+ *     @Index(name="comment_author_email", columns={"comment_author_email"})
+ *     @Index(name="comment_date_gmt", columns={"comment_date_gmt"})
+ *     @Index(name="comment_parent", columns={"comment_parent"})
+ *     @Index(name="comment_post_ID", columns={"comment_post_ID"})
+ * })
  */
 class Comment
 {
     /**
      * @ORM\Id()
-     * @ORM\Column(type="integer", name="comment_ID")
+     * @ORM\Column(type="bigint", name="comment_ID", options={"unsigned": true})
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private int $id;
@@ -33,27 +39,27 @@ class Comment
     private string $author;
 
     /**
-     * @ORM\Column(type="string", name="comment_author_email")
+     * @ORM\Column(type="string", length=100, name="comment_author_email", options={"default": ""})
      */
     private string $authorEmail;
 
     /**
-     * @ORM\Column(type="string", name="comment_author_url")
+     * @ORM\Column(type="string", name="comment_author_url", length=200, options={"default": ""})
      */
     private string $authorUrl;
 
     /**
-     * @ORM\Column(type="string", name="comment_author_IP")
+     * @ORM\Column(type="string", name="comment_author_IP", length=100, options={"default": ""})
      */
     private string $authorIp;
 
     /**
-     * @ORM\Column(type="datetime", name="comment_date")
+     * @ORM\Column(type="datetime", name="comment_date", options={"default": "0000-00-00 00:00:00"})
      */
     private DateTime $date;
 
     /**
-     * @ORM\Column(type="datetime", name="comment_date_gmt")
+     * @ORM\Column(type="datetime", name="comment_date_gmt", options={"default": "0000-00-00 00:00:00"})
      */
     private DateTime $dateGMT;
 
@@ -63,22 +69,22 @@ class Comment
     private string $content;
 
     /**
-     * @ORM\Column(type="integer", name="comment_karma")
+     * @ORM\Column(type="integer", name="comment_karma", options={"default": 0})
      */
     private int $karma;
 
     /**
-     * @ORM\Column(type="boolean", name="comment_approved")
+     * @ORM\Column(type="string", length=20, name="comment_approved", options={"default": "1"})
      */
     private bool $approved;
 
     /**
-     * @ORM\Column(type="string", name="comment_agent")
+     * @ORM\Column(type="string", length=255, name="comment_agent", options={"default": ""})
      */
     private string $agent;
 
     /**
-     * @ORM\Column(type="string", name="comment_type")
+     * @ORM\Column(type="string", length=20, name="comment_type", options={"default":"comment"})
      */
     private string $type;
 

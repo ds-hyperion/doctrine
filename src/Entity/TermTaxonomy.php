@@ -10,14 +10,19 @@ use Doctrine\ORM\Mapping as ORM;
  * Class TermTaxonomy
  * @package Hyperion\Core\Entity
  * @ORM\Entity()
- * @ORM\Table(name="term_taxonomy")
+ * @ORM\Table(name="term_taxonomy",uniqueConstraints={
+ *        @UniqueConstraint(name="term_id_taxonomy",
+ *            columns={"term_id", "taxonomy"})
+ *    }, indexes={
+ *     @Index(name="taxonomy", columns={"taxonomy"})
+ * })
  */
 class TermTaxonomy
 {
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue(strategy="AUTO")
-     * @ORM\Column(type="integer", name="term_taxonomy_id")
+     * @ORM\Column(type="bigint", name="term_taxonomy_id", options={"unsigned": true})
      */
     private int $id;
 
@@ -28,12 +33,12 @@ class TermTaxonomy
     private Term $term;
 
     /**
-     * @ORM\Column(name="taxonomy", type="string")
+     * @ORM\Column(name="taxonomy", length=32, type="string", options={"default": ""})
      */
     private string $taxonomy;
 
     /**
-     * @ORM\Column(name="description", type="string")
+     * @ORM\Column(name="description", type="text")
      */
     private string $description;
 
@@ -50,7 +55,7 @@ class TermTaxonomy
     private Collection $childs;
 
     /**
-     * @ORM\Column(type="integer", name="count")
+     * @ORM\Column(type="bigint", name="count", option={"default": 0})
      */
     private int $count;
 

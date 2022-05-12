@@ -8,13 +8,15 @@ use Doctrine\ORM\Mapping as ORM;
  * Class TermRelationship
  * @package Hyperion\Core\Entity
  * @ORM\Entity()
- * @ORM\Table(name="term_relationships")
+ * @ORM\Table(name="term_relationships"indexes={
+ *     @Index(name="term_taxonomy_id", columns={"term_taxonomy_id"})
+ * })
  */
 class TermRelationship
 {
     /**
      * @ORM\Id()
-     * @ORM\Column(type="integer", name="object_id")
+     * @ORM\Column(type="bigint", name="object_id")
      */
     private int $objectId;
 
@@ -26,7 +28,7 @@ class TermRelationship
     private TermTaxonomy $termTaxonomy;
 
     /**
-     * @ORM\Column(name="term_order", type="integer")
+     * @ORM\Column(name="term_order", type="integer", options={"default": 0})
      */
     private int $order;
 

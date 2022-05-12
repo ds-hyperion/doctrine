@@ -8,7 +8,10 @@ use Doctrine\ORM\Mapping as ORM;
  * Class PostMeta
  * @package Hyperion\Core\Entity
  * @ORM\Entity()
- * @ORM\Table(name="postmeta")
+ * @ORM\Table(name="postmeta", indexes={
+ *     @Index(name="meta_key", columns={"meta_key"}),
+ *     @Index(name="post_id", columns={"post_id"})
+ * })
  */
 class PostMeta
 {
@@ -26,12 +29,12 @@ class PostMeta
     private Post $post;
 
     /**
-     * @ORM\Column(type="string", name="meta_key")
+     * @ORM\Column(type="string", length=255, name="meta_key", nullable=true)
      */
     private string $key;
 
     /**
-     * @ORM\Column(type="string", name="meta_value")
+     * @ORM\Column(type="text", name="meta_value", nullable=true)
      */
     private string $value;
 

@@ -11,7 +11,12 @@ use Doctrine\ORM\Mapping as ORM;
  * Class Post
  * @package Hyperion\Core\Entity
  * @ORM\Entity()
- * @ORM\Table(name="posts")
+ * @ORM\Table(name="posts", indexes={
+ *     @Index(name="post_author", columns={"post_author"}),
+ *     @Index(name="post_name", columns={"post_name"})
+ *     @Index(name="post_parent", columns={"post_parent"})
+ *     @Index(name="type_status_date", columns={"post_type, post_status, post_date_, ID"})
+ * })
  */
 class Post
 {
@@ -41,78 +46,77 @@ class Post
     private User $author;
 
     /**
-     * @ORM\Column(type="datetime", name="post_date")
+     * @ORM\Column(type="datetime", name="post_date", options={"default": "0000-00-00 00:00:00"})
      */
     private DateTime $date;
 
     /**
-     * @ORM\Column(type="datetime", name="post_date_gmt")
+     * @ORM\Column(type="datetime", name="post_date_gmt", options={"default": "0000-00-00 00:00:00"})
      */
     private Datetime $dateGMT;
 
     /**
-     * @ORM\Column(type="string", name="post_content")
+     * @ORM\Column(type="text", name="post_content")
      */
-    private string $content = "";
+    private string $content;
 
     /**
-     * @ORM\Column(type="string", name="post_title")
+     * @ORM\Column(type="text", name="post_title")
      */
-    private string $title = "";
+    private string $title;
 
     /**
-     * @ORM\Column(type="string", name="post_excerpt")
+     * @ORM\Column(type="text", name="post_excerpt")
      */
-    private string $excerpt = "";
+    private string $excerpt;
 
     /**
-     * @ORM\Column(type="string", name="post_status")
+     * @ORM\Column(type="string", length=20, name="post_status", options={"default": "publish"})
      */
-    private string $status = "";
+    private string $status;
 
     /**
-     * @ORM\Column(type="string", name="comment_status")
+     * @ORM\Column(type="string", length=20, name="comment_status", options={"default": "open"})
      */
-    private string $commentStatus = "";
+    private string $commentStatus;
 
     /**
-     * @ORM\Column(type="string", name="ping_status")
+     * @ORM\Column(type="string", length=20, name="ping_status", options={"default": "open"})
      */
-    private string $pingStatus = "";
+    private string $pingStatus;
 
     /**
-     * @ORM\Column(type="string", name="post_password")
+     * @ORM\Column(type="string", length=255, name="post_password", options={"default": ""})
      */
-    private string $password = "";
+    private string $password;
 
     /**
-     * @ORM\Column(type="string", name="post_name")
+     * @ORM\Column(type="string", length=200, name="post_name", options={"default": ""})
      */
-    private string $name = "";
+    private string $name;
 
     /**
-     * @ORM\Column(type="string", name="to_ping")
+     * @ORM\Column(type="text", name="to_ping")
      */
-    private string $toPing = "";
+    private string $toPing;
 
     /**
-     * @ORM\Column(type="string", name="pinged")
+     * @ORM\Column(type="text", name="pinged")
      */
-    private string $pinged = "";
+    private string $pinged;
 
     /**
-     * @ORM\Column(type="datetime", name="post_modified")
+     * @ORM\Column(type="datetime", name="post_modified", options={"default": "0000-00-00 00:00:00"})
      */
-    private ?DateTime $modified = null;
+    private DateTime $modified;
 
     /**
-     * @ORM\Column(type="datetime", name="post_modified_gmt")
-     * @todo: Découvrir comment dans la base il peut y avoir des null sur un not null
+     * @ORM\Column(type="datetime", name="post_modified_gmt", options={"default": "0000-00-00 00:00:00"})
      */
     private DateTime $modifiedGMT;
 
     /**
-     * @ORM\Column(type="string", name="post_content_filtered")
+     * @ORM\Column(type="text", name="post_content_filtered")
      */
     private string $contentFiltered = "";
 
@@ -129,29 +133,29 @@ class Post
     private Collection $childs;
 
     /**
-     * @ORM\Column(type="string", name="guid")
+     * @ORM\Column(type="string", length=255, name="guid", options={"default": ""})
      */
-    private string $guid = "";
+    private string $guid;
 
     /**
-     * @ORM\Column(type="integer", name="menu_order")
+     * @ORM\Column(type="integer", name="menu_order", options={"default": 0})
      */
-    private int $menuOrder = 0;
+    private int $menuOrder;
 
     /**
-     * @ORM\Column(type="string", name="post_type")
+     * @ORM\Column(type="string", length=20, name="post_type", options={"default": "post"})
      */
-    private string $postType = "post";
+    private string $postType;
 
     /**
-     * @ORM\Column(type="string", name="post_mime_type")
+     * @ORM\Column(type="string", length=100, name="post_mime_type", options={"default": ""})
      */
-    private string $postMimeType = "";
+    private string $postMimeType;
 
     /**
-     * @ORM\Column(type="integer", name="comment_count")
+     * @ORM\Column(type="bigint", name="comment_count", options={"default": 0})
      */
-    private int $commentCount = 0;
+    private int $commentCount;
 
     /**
      * @var Comment[]
