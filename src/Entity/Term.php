@@ -9,8 +9,8 @@ use Doctrine\ORM\Mapping as ORM;
  * @package Hyperion\Core\Entity
  * @ORM\Entity()
  * @ORM\Table(name="terms", indexes={
- *     @Index(name="name", columns={"name"}),
- *     @Index(name="slug", columns={"slug"})
+ *     @ORM\Index(name="name", columns={"name"}),
+ *     @ORM\Index(name="slug", columns={"slug"})
  * })
  */
 class Term

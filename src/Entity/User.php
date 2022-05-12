@@ -12,9 +12,9 @@ use Doctrine\Common\Collections\Collection;
  * @package Hyperion\Core\Entity
  * @ORM\Entity()
  * @ORM\Table(name="users",indexes={
- *     @Index(name="user_email", columns={"user_email"}),
- *     @Index(name="user_login_key", columns={"user_login"})
- *     @Index(name="user_nicename", columns={"user_nicename"})
+ *     @ORM\Index(name="user_email", columns={"user_email"}),
+ *     @ORM\Index(name="user_login_key", columns={"user_login"}),
+ *     @ORM\Index(name="user_nicename", columns={"user_nicename"})
  * })
  */
 class User

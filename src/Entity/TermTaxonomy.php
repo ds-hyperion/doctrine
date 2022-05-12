@@ -14,7 +14,7 @@ use Doctrine\ORM\Mapping as ORM;
  *        @UniqueConstraint(name="term_id_taxonomy",
  *            columns={"term_id", "taxonomy"})
  *    }, indexes={
- *     @Index(name="taxonomy", columns={"taxonomy"})
+ *     @ORM\Index(name="taxonomy", columns={"taxonomy"})
  * })
  */
 class TermTaxonomy

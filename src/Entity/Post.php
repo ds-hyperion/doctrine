@@ -12,10 +12,10 @@ use Doctrine\ORM\Mapping as ORM;
  * @package Hyperion\Core\Entity
  * @ORM\Entity()
  * @ORM\Table(name="posts", indexes={
- *     @Index(name="post_author", columns={"post_author"}),
- *     @Index(name="post_name", columns={"post_name"})
- *     @Index(name="post_parent", columns={"post_parent"})
- *     @Index(name="type_status_date", columns={"post_type, post_status, post_date_, ID"})
+ *     @ORM\Index(name="post_author", columns={"post_author"}),
+ *     @ORM\Index(name="post_name", columns={"post_name"}),
+ *     @ORM\Index(name="post_parent", columns={"post_parent"}),
+ *     @ORM\Index(name="type_status_date", columns={"post_type, post_status, post_date_, ID"})
  * })
  */
 class Post
