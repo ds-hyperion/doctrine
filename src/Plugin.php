@@ -2,7 +2,6 @@
 
 namespace Hyperion\Doctrine;
 
-use Hyperion\Doctrine\Command\UpdateDatabase;
 use Hyperion\Doctrine\DoctrineEvents\TablePrefixSubscriber;
 use Hyperion\Doctrine\Service\DoctrineService;
 use WP_CLI;
