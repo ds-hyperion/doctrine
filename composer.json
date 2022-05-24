@@ -1,7 +1,7 @@
 {
     "name": "hyperion/doctrine",
     "description": "Plugin permettant l'integration de doctrine dans wordpress",
-    "type": "wordpress-plugin",
+    "type": "wordpress-muplugin",
     "autoload": {
         "psr-4": {
             "Hyperion\\Doctrine\\": "src/"
