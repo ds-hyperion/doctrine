@@ -10,5 +10,7 @@
  * Licence: GPLv2
  */
 
+register_activation_hook(__FILE__, '\Hyperion\Doctrine\Plugin::onActivation');
+register_deactivation_hook(__FILE__, '\Hyperion\Doctrine\Plugin::onDeactivation');
 add_action('init', '\Hyperion\Doctrine\Plugin::init');
 add_action('cli_init', '\Hyperion\Doctrine\Plugin::addCLICommands');
