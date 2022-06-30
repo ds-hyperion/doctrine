@@ -23,7 +23,7 @@ class Plugin
         $wpdb->query("CREATE TRIGGER triggerInsertZeroToNullForComments BEFORE INSERT ON ".$dbPrefix."comments FOR EACH ROW IF NEW.post_parent = 0 THEN SET NEW.post_parent = null; END IF;");
         $wpdb->query("CREATE TRIGGER triggerUpdateZeroToNullForComments BEFORE UPDATE ON ".$dbPrefix."comments FOR EACH ROW IF NEW.post_parent = 0 THEN SET NEW.post_parent = null; END IF;");
 
-        $wpdb->query("UPDATE ".$dbPrefix."posts SET post_parent = null WHERE post_parent=0;");
+        $wpdb->query("UPDATE ".$dbPrefix."posts SET post_parent = null WHERE post_parent=0 OR post_parent not in (select ID from ".$dbPrefix."posts);");
         $wpdb->query("UPDATE ".$dbPrefix."comments SET user_id = null WHERE user_id=0;");
     }
 
