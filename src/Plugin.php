@@ -24,6 +24,7 @@ class Plugin
         $wpdb->query("CREATE TRIGGER triggerUpdateZeroToNullForComments BEFORE UPDATE ON ".$dbPrefix."comments FOR EACH ROW IF NEW.post_parent = 0 THEN SET NEW.post_parent = null; END IF;");
 
         $wpdb->query("UPDATE ".$dbPrefix."posts SET post_parent = null WHERE post_parent=0;");
+        $wpdb->query("UPDATE ".$dbPrefix."comments SET user_id = null WHERE user_id=0;");
     }
 
     public static function onDeactivation()
@@ -32,6 +33,7 @@ class Plugin
         $dbPrefix = getenv('DB_PREFIX') === false ? 'wp_' : getenv('DB_PREFIX');
 
         $wpdb->query("UPDATE ".$dbPrefix."posts SET post_parent = 0 WHERE post_parent IS NULL");
+        $wpdb->query("UPDATE ".$dbPrefix."comments SET user_id = 0 WHERE user_id IS NULL");
         $wpdb->query("DROP TRIGGER triggerInsertZeroToNull");
         $wpdb->query("DROP TRIGGER triggerUpdateZeroToNull");
         $wpdb->query("DROP TRIGGER triggerInsertZeroToNullForComments");
