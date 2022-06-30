@@ -102,7 +102,7 @@ class Comment
 
     /**
      * @ORM\ManyToOne(targetEntity="User", inversedBy="comments")
-     * @ORM\JoinColumn(name="user_id", referencedColumnName="ID")
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="ID", nullable=true)
      */
     private User $user;
 
