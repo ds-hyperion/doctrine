@@ -28,7 +28,7 @@ class TermTaxonomy
 
     /**
      * @ORM\ManyToOne(targetEntity="Term", inversedBy="taxonomies")
-     * @ORM\JoinColumn(name="term_id", referencedColumnName="term_id")
+     * @ORM\JoinColumn(name="term_id", referencedColumnName="term_id", onDelete="CASCADE")
      */
     private Term $term;
 

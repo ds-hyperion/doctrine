@@ -24,7 +24,7 @@ class PostMeta
 
     /**
      * @ORM\ManyToOne(targetEntity="Post", inversedBy="metas")
-     * @ORM\JoinColumn(name="post_id", referencedColumnName="ID")
+     * @ORM\JoinColumn(name="post_id", referencedColumnName="ID", onDelete="CASCADE")
      */
     private Post $post;
 

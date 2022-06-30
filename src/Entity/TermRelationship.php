@@ -23,7 +23,7 @@ class TermRelationship
     /**
      * @ORM\Id()
      * @ORM\ManyToOne(targetEntity="TermTaxonomy")
-     * @ORM\JoinColumn(name="term_taxonomy_id", referencedColumnName="term_taxonomy_id")
+     * @ORM\JoinColumn(name="term_taxonomy_id", referencedColumnName="term_taxonomy_id", onDelete="CASCADE")
      */
     private TermTaxonomy $termTaxonomy;
 

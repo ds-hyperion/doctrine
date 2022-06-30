@@ -24,7 +24,7 @@ class TermMeta
 
     /**
      * @ORM\ManyToOne(targetEntity="Term", inversedBy="metas")
-     * @ORM\JoinColumn(name="term_id", referencedColumnName="term_id")
+     * @ORM\JoinColumn(name="term_id", referencedColumnName="term_id", onDelete="CASCADE")
      */
     private Term $term;
 

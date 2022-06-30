@@ -14,29 +14,42 @@ class Plugin
     public static function onActivation()
     {
         global $wpdb;
-        $dbPrefix = getenv('DB_PREFIX') === false ? 'wp_' : getenv('DB_PREFIX');
 
-        $wpdb->query("ALTER TABLE ".$dbPrefix."posts modify post_parent bigint unsigned null");
-        $wpdb->query("ALTER TABLE ".$dbPrefix."comments modify user_id bigint unsigned null");
-        $wpdb->query("CREATE TRIGGER triggerInsertZeroToNull BEFORE INSERT ON ".$dbPrefix."posts FOR EACH ROW IF NEW.post_parent = 0 THEN SET NEW.post_parent = null; END IF;");
-        $wpdb->query("CREATE TRIGGER triggerUpdateZeroToNull BEFORE UPDATE ON ".$dbPrefix."posts FOR EACH ROW IF NEW.post_parent = 0 THEN SET NEW.post_parent = null; END IF;");
-        $wpdb->query("CREATE TRIGGER triggerInsertZeroToNullForComments BEFORE INSERT ON ".$dbPrefix."comments FOR EACH ROW IF NEW.post_parent = 0 THEN SET NEW.post_parent = null; END IF;");
-        $wpdb->query("CREATE TRIGGER triggerUpdateZeroToNullForComments BEFORE UPDATE ON ".$dbPrefix."comments FOR EACH ROW IF NEW.post_parent = 0 THEN SET NEW.post_parent = null; END IF;");
+        $wpdb->query("CREATE TRIGGER triggerInsertZeroToNull BEFORE INSERT ON $wpdb->posts FOR EACH ROW IF NEW.post_parent = 0 THEN SET NEW.post_parent = null; END IF;");
+        $wpdb->query("CREATE TRIGGER triggerUpdateZeroToNull BEFORE UPDATE ON $wpdb->posts FOR EACH ROW IF NEW.post_parent = 0 THEN SET NEW.post_parent = null; END IF;");
+        $wpdb->query("CREATE TRIGGER triggerInsertZeroToNullForComments BEFORE INSERT ON $wpdb->comments FOR EACH ROW IF NEW.post_parent = 0 THEN SET NEW.post_parent = null; END IF;");
+        $wpdb->query("CREATE TRIGGER triggerUpdateZeroToNullForComments BEFORE UPDATE ON $wpdb->comments FOR EACH ROW IF NEW.post_parent = 0 THEN SET NEW.post_parent = null; END IF;");
+        $wpdb->query("CREATE TRIGGER triggerInsertZeroToNullForTermTaxonomy BEFORE INSERT ON $wpdb->term_taxonomy FOR EACH ROW IF NEW.parent = 0 THEN SET NEW.parent = null; END IF;");
+        $wpdb->query("CREATE TRIGGER triggerUpdateZeroToNullForTermTaxonomy BEFORE UPDATE ON $wpdb->term_taxonomy FOR EACH ROW IF NEW.parent = 0 THEN SET NEW.parent = null; END IF;");
 
-        $wpdb->query("UPDATE ".$dbPrefix."posts SET post_parent = null WHERE post_parent=0;");
+        $wpdb->query("ALTER TABLE $wpdb->posts modify post_parent bigint unsigned null");
+        $wpdb->query("ALTER TABLE $wpdb->comments modify user_id bigint unsigned null");
+        $wpdb->query("UPDATE $wpdb->posts SET post_parent = null WHERE post_parent=0 OR post_parent not in (select ID from $wpdb->posts);");
+        $wpdb->query("UPDATE $wpdb->comments SET user_id = null WHERE user_id=0");
+        $wpdb->query("UPDATE $wpdb->term_taxonomy SET parent = null WHERE parent=0;");
+
+        $wpdb->query("DELETE FROM $wpdb->postmeta where post_id not in (select ID from $wpdb->posts)");
+        $wpdb->query("DELETE FROM $wpdb->termmeta where term_id not in (select term_id from $wpdb->terms)");
+        $wpdb->query("DELETE FROM $wpdb->commentmeta where comment_id not in (select comment_ID from $wpdb->comments)");
+        $wpdb->query("DELETE FROM $wpdb->term_relationships where term_taxonomy_id not in (select term_taxonomy_id from $wpdb->term_taxonomy)");
+        $wpdb->query("DELETE FROM $wpdb->term_taxonomy where term_id not in (select term_id from $wpdb->terms)");
+        $wpdb->query("DELETE FROM $wpdb->usermeta where user_id not in (select ID from $wpdb->users)");
     }
 
     public static function onDeactivation()
     {
         global $wpdb;
-        $dbPrefix = getenv('DB_PREFIX') === false ? 'wp_' : getenv('DB_PREFIX');
 
-        $wpdb->query("UPDATE ".$dbPrefix."posts SET post_parent = 0 WHERE post_parent IS NULL");
+        $wpdb->query("UPDATE $wpdb->posts SET post_parent = 0 WHERE post_parent IS NULL");
+        $wpdb->query("UPDATE $wpdb->comments SET user_id = 0 WHERE user_id IS NULL");
+        $wpdb->query("UPDATE $wpdb->term_taxonomy SET parent = 0 WHERE parent IS NULL");
         $wpdb->query("DROP TRIGGER triggerInsertZeroToNull");
         $wpdb->query("DROP TRIGGER triggerUpdateZeroToNull");
         $wpdb->query("DROP TRIGGER triggerInsertZeroToNullForComments");
         $wpdb->query("DROP TRIGGER triggerUpdateZeroToNullForComments");
-        $wpdb->query("ALTER TABLE ".$dbPrefix."posts modify post_parent bigint unsigned default 0 not null");
+        $wpdb->query("DROP TRIGGER triggerInsertZeroToNullForTermTaxonomy");
+        $wpdb->query("DROP TRIGGER triggerUpdateZeroToNullForTermTaxonomy");
+        $wpdb->query("ALTER TABLE $wpdb->posts modify post_parent bigint unsigned default 0 not null");
     }
 
     public static function init()
