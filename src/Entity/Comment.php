@@ -63,7 +63,7 @@ class Comment
     private DateTime $dateGMT;
 
     /**
-     * @ORM\Column(type="string", name="comment_content")
+     * @ORM\Column(type="text", name="comment_content")
      */
     private string $content;
 
