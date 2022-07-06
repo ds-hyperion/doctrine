@@ -22,7 +22,12 @@ class Plugin
         $wpdb->query("CREATE TRIGGER triggerUpdateZeroToNull BEFORE UPDATE ON ".$dbPrefix."posts FOR EACH ROW IF NEW.post_parent = 0 THEN SET NEW.post_parent = null; END IF;");
         $wpdb->query("CREATE TRIGGER triggerInsertZeroToNullForComments BEFORE INSERT ON ".$dbPrefix."comments FOR EACH ROW IF NEW.post_parent = 0 THEN SET NEW.post_parent = null; END IF;");
         $wpdb->query("CREATE TRIGGER triggerUpdateZeroToNullForComments BEFORE UPDATE ON ".$dbPrefix."comments FOR EACH ROW IF NEW.post_parent = 0 THEN SET NEW.post_parent = null; END IF;");
-
+        $wpdb->query("DELETE FROM $wpdb->postmeta where post_parent not in (select ID from $wpdb->post)");
+        $wpdb->query("DELETE FROM $wpdb->termmeta where term_id not in (select term_id from $wpdb->terms)");
+        $wpdb->query("DELETE FROM $wpdb->commentmeta where comment_id not in (select comment_ID from $wpdb->comments)");
+        $wpdb->query("DELETE FROM $wpdb->term_relationships where term_taxonomy_id not in (select term_taxonomy_id from $wpdb->term_taxonomy)");
+        $wpdb->query("DELETE FROM $wpdb->term_taxonomy where term_taxonomy_id not in (select term_taxonomy_id from $wpdb->term_taxonomy)");
+        $wpdb->query("DELETE FROM $wpdb->usermeta where user_id not in (select ID from $wpdb->users)");
         $wpdb->query("UPDATE ".$dbPrefix."posts SET post_parent = null WHERE post_parent=0 OR post_parent not in (select ID from ".$dbPrefix."posts);");
         $wpdb->query("UPDATE ".$dbPrefix."comments SET user_id = null WHERE user_id=0;");
     }

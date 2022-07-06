@@ -24,7 +24,7 @@ class CommentMeta
 
     /**
      * @ORM\ManyToOne(targetEntity="Comment", inversedBy="metas")
-     * @ORM\JoinColumn(name="comment_id", referencedColumnName="comment_ID")
+     * @ORM\JoinColumn(name="comment_id", referencedColumnName="comment_ID", onDelete="CASCADE")
      */
     private Comment $comment;
 
