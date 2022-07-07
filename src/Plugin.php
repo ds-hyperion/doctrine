@@ -33,6 +33,7 @@ class Plugin
         $wpdb->query("DELETE FROM $wpdb->commentmeta where comment_id not in (select comment_ID from $wpdb->comments)");
         $wpdb->query("DELETE FROM $wpdb->term_relationships where term_taxonomy_id not in (select term_taxonomy_id from $wpdb->term_taxonomy)");
         $wpdb->query("DELETE FROM $wpdb->term_taxonomy where term_id not in (select term_id from $wpdb->terms)");
+        $wpdb->query("DELETE FROM $wpdb->term_taxonomy where parent not in (select term_taxonomy_id from $wpdb->term_taxonomy)");
         $wpdb->query("DELETE FROM $wpdb->usermeta where user_id not in (select ID from $wpdb->users)");
     }
 
