@@ -1,5 +1,5 @@
 {
-    "name": "hyperion/doctrine",
+    "name": "wordpress-hyperion/doctrine",
     "description": "Plugin permettant l'integration de doctrine dans wordpress",
     "type": "wordpress-plugin",
     "autoload": {
